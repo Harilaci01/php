@@ -20,7 +20,7 @@ include 'htmlheader.php';
 include 'menu.inc.php';
 
 ?>
-        <?php       
+        <?php
         $hianyzok=array(); //ebben lesznek a hiányzók id-i felsorolva
         $sql = "SELECT id FROM hianyzok";
         if(!$result = $conn->query($sql)) echo $conn->error;
