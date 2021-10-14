@@ -1,0 +1,18 @@
+td{
+  border:1px solid black;
+  width:100px;
+ 
+}
+.nincs{
+  border:none;
+}
+.vertical-text {
+	writing-mode: vertical-lr;
+  border:none;
+}
+#me{
+  color:green
+}
+.hianyzo{
+  color:red;
+}
