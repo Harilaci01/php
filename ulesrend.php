@@ -2,6 +2,8 @@
 session_start();
 require 'db.inc.php';
 require 'functions.inc.php';
+require 'model/Ulesrend.php';
+$tanulo= new Ulesrend;
 //form feldolgozás
 
 if(!empty($_POST["hianyzo_id"])){
@@ -69,7 +71,8 @@ include 'menu.inc.php';
                                     $result=tanuloklistaja($conn);
                                     if($result->num_rows >0){
                                         while($row=$result->fetch_assoc()){
-                                            if($row['nev'] and !in_array($row['id'],$hianyzok))echo '<option value="'.$row['id'].'">'.$row['nev'].'</option>';
+                                            $tanulo->set_user($row['id'],$conn);
+                                            if($tanulo->get_nev() and !in_array($row['id'],$hianyzok))echo '<option value="'.$row['id'].'">'.$tanulo->get_nev().'</option>';
                                         }
                                     }
                                     ?>
@@ -90,19 +93,20 @@ include 'menu.inc.php';
                     $sor=0;
                     // output data of each row
                     while($row = $result->fetch_assoc()) {
-                       if($row["sor"]!=$sor){
+                        $tanulo->set_user($row['id'],$conn);
+                       if($tanulo->get_sor()!=$sor){
                             if($sor!=0)echo '</tr>';
                             echo '<tr>';
-                            $sor=$row["sor"];
+                            $sor=$tanulo->get_sor();
                        }
-                       if(!$row["nev"])echo '<td class="nincs"></td>';
+                       if(!$tanulo->get_nev())echo '<td class="nincs"></td>';
                        else{
                         $plusz='';
                         //if(in_array(($row["oszlop"]-1),$hianyzok[$sor-1]))$plusz.=' class="hianyzo"';
                         if(in_array(($row["id"]),$hianyzok))$plusz.=' class="hianyzo"';
                         if($row["id"]==$dupla)$plusz.=' colspan="2"';
                         if($row["id"]==$me)$plusz.= ' id="me"';
-                       echo "<td".$plusz.">".$row["nev"];
+                       echo "<td".$plusz.">".$tanulo->get_nev();
                        if(!empty($_SESSION['id'])){
                         if(in_array($_SESSION['id'],$adminok)){
                        if(in_array(($row["id"]),$hianyzok ))echo '<br><a href="ulesrend.php?nem_hianyzo='.$row['id'].'">Nem hiányzó</a>';

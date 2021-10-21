@@ -28,9 +28,30 @@ class Ulesrend{
     }
     public function get_nev(){
         return $this->nev;
+    }    
+    public function get_sor(){
+        return $this->sor;
+    }   
+    public function get_oszlop(){
+        return $this->oszlop;
+    }   
+    public function get_jelszo(){
+        return $this->jelszo;
     }
+    public function get_felhasznalo(){
+        return $this->felhasznalo;
+    }
+    public function get_id(){
+        $sql="SELECT id, nev,sor, oszlop, jelszo, felhasznalo FROM ulesrend ";
+        $result=$conn->query($sql);
+
+        if($result->num_rows > 0){
+            $row=$result->fetch_assoc();
+            $this->id=$row['id'];}
+        return id;            
+        
+    }
+    
 }
-$tanulo=new Ulesrend;
-$tanulo->set_user(4,$conn);
-echo $tanulo->get_usernev();
+ echo get_id();
 ?>

@@ -1,6 +1,8 @@
 <?php
 session_start();
 require 'db.inc.php';
+require 'model/Ulesrend.php';
+$tanulo= new Ulesrend;
 
 require 'functions.inc.php';
 
@@ -15,9 +17,10 @@ if(isset($_POST['user'])and isset($_POST['pw'])){
         
          if($result->num_rows > 0){
              if($row = $result->fetch_assoc()){
-                if(md5($_POST['pw'])==$row['jelszo']){
+                 $tanulo->set_user($row['id'],$conn);
+                if(md5($_POST['pw'])==$tanulo->get_jelszo()){
                     $_SESSION["id"]=$row['id'];
-                    $_SESSION["nev"]=$row['nev'];
+                    $_SESSION["nev"]=$tanulo->get_nev();
                     header('Location:ulesrend.php');
                     exit();
                 }else $loginError.='Érvénytelen jelszó';
