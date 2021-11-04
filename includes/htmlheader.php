@@ -1,8 +1,3 @@
-<?php 
-    if(isset($_REQUEST['action'])){
-        if($_REQUEST['action']=='kilepes')session_unset();}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
