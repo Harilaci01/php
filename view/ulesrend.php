@@ -1,10 +1,4 @@
-<?php
-include 'htmlheader.php';
 
-include 'menu.inc.php';
-
-?>        
-		<body>
 			<table>
                 <tr> 
                     <th colspan="3">
