@@ -1,5 +1,4 @@
 <?php 
-require "../db.inc.php";
 
 class Ulesrend{
     private $id;
@@ -46,7 +45,7 @@ class Ulesrend{
         return $this->id;            
         
     }
-    public function tanuloklistaja($conn){
+    public function tanulokListaja($conn){
         $lista=array();
         $sql="SELECT id FROM ulesrend";
         if($result=$conn->query($sql)){
@@ -60,5 +59,5 @@ class Ulesrend{
     }
     
 }
- echo $tanulo->get_id();
+
 ?>

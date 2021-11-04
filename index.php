@@ -1,16 +1,32 @@
 <?php 
 session_start();
-$title="Főoldal";
+require 'db.inc.php';
+require 'model/Ulesrend.php';
+$tanulo= new Ulesrend;
+require 'functions.inc.php';
+ 
+$szoveg="Belépés";
+$link="belepes.php";
+if(!empty($_SESSION["id"])){
+    $szoveg=$_SESSION["nev"].": Kilépés";
+    $link="index.php?logout=1";
+}
+$menupontok=array('index' => "Főoldal",'ulesrend' => "Ülésrend",$link => $szoveg);
+$page='index';
+if(isset($_REQUEST['page'])){
+    if(file_exists('controller/'.$_REQUEST['page'].'.php')){
+        $page=$_REQUEST['page'];
+    }
+}
+$title=$menupontok[$page];
 include 'htmlheader.php';
 ?>
 <body>
 <?php
 include 'menu.inc.php';
 
-?>
-    <h1>Szia Uram!</h1>    
+include 'controller/'.$page.'.php';
+
+
+?>   
 </body>
-</html>
-
-
-
