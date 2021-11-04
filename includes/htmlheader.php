@@ -1,6 +1,7 @@
 <?php 
-    if(isset($_GET['logout'])){
-        session_unset();}
+    if(isset($_REQUEST['action'])){
+        if($_REQUEST['action']=='kilepes')session_unset();}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

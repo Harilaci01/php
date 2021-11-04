@@ -4,20 +4,32 @@ require 'includes/db.inc.php';
 require 'model/Ulesrend.php';
 $tanulo= new Ulesrend;
 require 'includes/functions.inc.php';
- 
-$szoveg="Belépés";
-$link="belepes.php";
+
+
 if(!empty($_SESSION["id"])){
     $szoveg=$_SESSION["nev"].": Kilépés";
-    $link="index.php?logout=1";
+    $action="kilepes";
 }
-$menupontok=array('index' => "Főoldal",'ulesrend' => "Ülésrend",$link => $szoveg);
+else{
+    $szoveg="Belépés";
+    $action="belepes";
+}
+
 $page='index';
 if(isset($_REQUEST['page'])){
+    if($_REQUEST['page']=='felhasznalo'){
+        $szoveg="Belépés";
+        $action="belepes";
+        if(!empty($_SESSION["id"])){
+            $szoveg=$_SESSION["nev"].": Kilépés";
+            $action="kilepes";
+        }
+    }
     if(file_exists('controller/'.$_REQUEST['page'].'.php')){
         $page=$_REQUEST['page'];
     }
 }
+$menupontok=array('index' => "Főoldal",'ulesrend' => "Ülésrend",'felhasznalo'=>$szoveg);
 $title=$menupontok[$page];
 include 'includes/htmlheader.php';
 ?>
@@ -30,3 +42,4 @@ include 'controller/'.$page.'.php';
 
 ?>   
 </body>
+</html>	
