@@ -41,17 +41,24 @@ class Ulesrend{
     public function get_felhasznalo(){
         return $this->felhasznalo;
     }
-    public function get_id(){
-        $sql="SELECT id, nev,sor, oszlop, jelszo, felhasznalo FROM ulesrend ";
-        $result=$conn->query($sql);
-
-        if($result->num_rows > 0){
-            $row=$result->fetch_assoc();
-            $this->id=$row['id'];}
-        return id;            
+    public function get_id(){        
         
+        return $this->id;            
+        
+    }
+    public function tanuloklistaja($conn){
+        $lista=array();
+        $sql="SELECT id FROM ulesrend";
+        if($result=$conn->query($sql)){
+            if($result->num_rows>0){
+                while($row=$result->fetck_assoc()){
+                    $lista[]=$row['id'];
+                }
+            }
+        }
+        return $lista;
     }
     
 }
- echo get_id();
+ echo $tanulo->get_id();
 ?>
