@@ -53,7 +53,7 @@
                        echo "<td".$plusz.">".$tanulo->get_nev();
                        if(!empty($_SESSION['id'])){
                         if(in_array($_SESSION['id'],$adminok)){
-                       if(in_array(($row["id"]),$hianyzok ))echo '<br><a href="ulesrend.php?nem_hianyzo='.$row['id'].'">Nem hiányzó</a>';
+                       if(in_array(($row["id"]),$hianyzok ))echo '<br><a href="ulesrend.php?ulesrend&nem_hianyzo='.$row['id'].'">Nem hiányzó</a>';
                         }
                     }
                        echo "</td>";
