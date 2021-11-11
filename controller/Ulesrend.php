@@ -1,5 +1,5 @@
 <?php
-require 'model/Hianzyo.php';
+require 'model/Hianyzo.php';
 require 'model/Admin.php';
 
 $hianyzo=new Hianyzo();
@@ -7,10 +7,9 @@ if(!empty($_POST["hianyzo_id"])){
     $hianyzo->set_id($_POST["hianyzo_id"], $conn);
 }
 elseif(!empty($_GET['nem_hianyzo'])){
-    $sql="DELETE FROM hianyzok WHERE id=".$_GET['nem_hianyzo'];
-    $result=$conn->query($sql);
+    $hianyzo->remove_id($_POST["hianyzo_id"], $conn);
 }
- $hianyzok=$hianyzok->lista($conn); //ebben lesznek a hiányzók id-i felsorolva
+ $hianyzok=$hianyzo->lista($conn); //ebben lesznek a hiányzók id-i felsorolva
         
  $admin=new Admin();
  $adminok=$admin->lista($conn);   

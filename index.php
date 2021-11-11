@@ -3,7 +3,6 @@ session_start();
 require 'includes/db.inc.php';
 require 'model/Ulesrend.php';
 $tanulo= new Ulesrend;
-require 'includes/functions.inc.php';
 
 $page='index';
 if(isset($_REQUEST['action'])){
