@@ -45,7 +45,7 @@ class Ulesrend{
         return $this->id;            
         
     }
-    public function tanulokListaja($conn){
+    public function tanuloklistaja($conn){
         $lista=array();
         $sql="SELECT id FROM ulesrend";
         if($result=$conn->query($sql)){

@@ -14,9 +14,9 @@
                                     <form action="ulesrend.php" method="post">
                                     <select name="hianyzo_id">
                                     <?php
-                                    $result=tanuloklistaja($conn);
-                                    if($result->num_rows >0){
-                                        while($row=$result->fetch_assoc()){
+                                   
+                                    if($tanuloIdk){
+                                        foreach($tanuloIdk as $row){
                                             $tanulo->set_user($row['id'],$conn);
                                             if($tanulo->get_nev() and !in_array($row['id'],$hianyzok))echo '<option value="'.$row['id'].'">'.$tanulo->get_nev().'</option>';
                                         }
@@ -33,12 +33,10 @@
                     </tr>
 				<tr>
                 <?php              
-                    $sql = "SELECT id,nev, sor, oszlop FROM ulesrend";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
+                    if($tanuloIdk){
                     $sor=0;
                     // output data of each row
-                    while($row = $result->fetch_assoc()) {
+                    foreach($tanuloIdk as $row){
                         $tanulo->set_user($row['id'],$conn);
                        if($tanulo->get_sor()!=$sor){
                             if($sor!=0)echo '</tr>';
