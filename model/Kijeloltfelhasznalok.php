@@ -19,9 +19,13 @@ class Kijeloltfelhasznalok{
                 if($result=$conn->query($sql)){
                     $this->id=$id;
                 }
+                else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
             }
-        }else {
-            echo "Error: ".$sql."<br>".$conn->error;
+        } 
+        else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
    

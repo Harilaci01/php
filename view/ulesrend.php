@@ -16,7 +16,7 @@
                                     if($tanuloIdk){
                                         foreach($tanuloIdk as $row){
                                             $tanulo->set_user($row,$conn);
-                                            if($tanulo->get_nev() and !in_array($row['id'],$hianyzok))echo '<option value="'.$row['id'].'">'.$tanulo->get_nev().'</option>';
+                                            if($tanulo->get_nev() and !in_array($row,$hianyzok))echo '<option value="'.$row.'">'.$tanulo->get_nev().'</option>';
                                         }
                                     }
                                     ?>
@@ -50,7 +50,7 @@
                        echo "<td".$plusz.">".$tanulo->get_nev();
                        if(!empty($_SESSION['id'])){
                         if(in_array($_SESSION["id"],$adminok)){
-                       if(in_array(($row),$hianyzok ))echo '<br><a href="index.php?ulesrend&nem_hianyzo='.$row['id'].'">Nem hiányzó</a>';
+                       if(in_array(($row),$hianyzok ))echo '<br><a href="index.php?page=ulesrend&nem_hianyzo='.$row.'">Nem hiányzó</a>';
                         }
                     }
                        echo "</td>";
