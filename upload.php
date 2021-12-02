@@ -1,24 +1,49 @@
 <?php 
-if(isset($_FILES["fileToUpload"])&&isset($_FILES["fileToUpload2"])){
+$i=0;
+$errors=array();
+if(isset($_FILES["fileToUpload"])){
     $target_dir="uploads/";
-    $target_file=$target_dir.basename($_FILES["fileToUpload"]["name"]);
-   $target_file2=$target_dir.basename($_FILES["fileToUpload2"]["name"]);
-    if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
-        echo "File 1 has been uploaded.";
+    $allowed_filetypes=array('image/png','image/jpeg','image/jpg');
+    foreach($_FILES["fileToUpload"]["name"] as $key => $name){
+        $target_file=$target_dir.basename($name);
+        if($_FILES["fileToUpload"]["size"][$key]>102400){
+           $errors[$key][]= "A $name túl nagy méretű, 100Kb-nál nem lehet nagyobb";
+        }
+        elseif($_FILES["fileToUpload"]["size"][$key]<1024){
+            $errors[$key][]= "A $name túl kis méretű, 1Kb-nál nem lehet kisebb";
+         }
+         if(!in_array($_FILES["fileToUpload"]["type"][$key],$allowed_filetypes)){
+            $errors[$key][]="A $name file nem jpg vagy png vagy jpeg kiterjesztés.";
+         }
+         if(!isset($errors[$key])){
+            if(@move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$key],$target_file)){
+                $i++;
+            }
+            else{
+                $errors[$key][]="Hiba történt a $name file mentésekor.";
+            }
+        }
     }
-    if(move_uploaded_file($_FILES["fileToUpload2"]["tmp_name"], $target_file2)){
-        echo " <br> File 2 has been uploaded.";
-    }
+    
 
 }
 ?>
 <!DOCTYPE html>
 <html>
     <body>
+        <?php
+        if($i>0) echo "$i fájl feltöltve ";
+        if($errors){
+            foreach($errors as $error){
+                foreach($error as $errorMsg){
+                echo "$errorMsg <br>";
+                }
+            }
+        }
+        ?>
         <form action="upload.php" method="post" enctype="multipart/form-data">
             Select image to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="file" name="fileToUpload2" id="fileToUpload2">
+            <input type="file" name="fileToUpload[]" id="fileToUpload" multiple>
             <input type="submit" value="Upload Image" name="submit">
         </form>
     </body>
