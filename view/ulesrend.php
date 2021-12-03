@@ -1,4 +1,19 @@
+            <?php 
+            if(isset($_FILES["fileToUpload"])){
+                $target_dir="uploads/";                      
+                $target_file=$target_dir.basename($_FILES["fileToUpload"]["name"]);
+                if(@move_uploaded_file($_FILES["fileToUpload"]["tmp_name"],$target_file)){
+                    echo "Profilkép feltöltve";
+                }
+                
 
+            }
+            ?>
+                <form action="index.php?page=ulesrend" method="post" enctype="multipart/form-data">
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+                    <input type="submit" value="Profilkép feltöltése" name="submit">
+                   
+                </form>    
 			<table>
                 <tr> 
                     <th colspan="3">
@@ -44,10 +59,12 @@
                        if(!$tanulo->get_nev()) echo '<td class="nincs"></td>';
                        else{
                         $plusz='';
+                        $kep='';
                         if(in_array(($row),$hianyzok))$plusz.=' class="hianyzo"';
                         if($row==$dupla)$plusz.=' colspan="2"';
-                        if($row==$me)$plusz.= ' id="me"';
-                       echo "<td".$plusz.">".$tanulo->get_nev();
+                        if($row==$me){$plusz.= ' id="me"';
+                            $kep.='<img src="'.$target_file.'">';}
+                       echo "<td".$plusz.">".$tanulo->get_nev().$kep;
                        if(!empty($_SESSION['id'])){
                         if(in_array($_SESSION["id"],$adminok)){
                        if(in_array(($row),$hianyzok ))echo '<br><a href="index.php?page=ulesrend&nem_hianyzo='.$row.'">Nem hiányzó</a>';
@@ -61,6 +78,7 @@
                     }
                     $conn->close();
                 ?>  
-                </table>          
+                </table>  
+                    
 		</body>
 	</html>		
